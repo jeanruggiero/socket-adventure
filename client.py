@@ -17,6 +17,16 @@ while True:
         print("Connection closed by host.")
         break
 
+    # Note: I had to add this block of code to make my script
+    # function like the one in the video. Since the server sends
+    # "Goodbye!" before quitting, client_socket.recv() on line 15
+    # does not result in an error and the script then gets stuck
+    # on the blocking input call on line 32.
+    if response == "OK! Goodbye!\n":
+        client_socket.close()
+        print("Connection closed by host.")
+        break
+
     print(response)
 
     my_message = input("> ").encode('utf-8') + b'\n'
